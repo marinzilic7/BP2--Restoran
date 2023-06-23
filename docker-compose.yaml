@@ -1,0 +1,25 @@
+
+version: "3.7"
+
+networks:
+  bpnet:
+    driver: bridge
+
+services:
+  db:
+    image: mysql
+    container_name: db
+    environment:
+      - MYSQL_DATABASE=restoran
+      - MYSQL_USER=rest123
+      - MYSQL_PASSWORD=rest123
+      - MYSQL_ROOT_PASSWORD=rest123
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - bpnet
+
+  # Ostali servisi...
+  
+volumes:
+  mysql_data:
