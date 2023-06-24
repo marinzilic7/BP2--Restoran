@@ -36,6 +36,7 @@
           <tr>
             <th scope="col">id</th>
             <th scope="col">Naziv</th>
+            <th scope="col">Kategorija</th>
             <th scope="col">Opis</th>
             <th scope="col">Cijena</th>
           </tr>
@@ -45,6 +46,7 @@
           <tr >
             <th scope="row">{{jelo.ID_food}}</th>
             <td>{{ jelo.naziv }}</td>
+            <td>{{ jelo.ID_kategorija }}</td>
             <td>{{ jelo.opis }}</td>
             <td>{{ jelo.cijena }}</td>
           </tr>
@@ -75,6 +77,12 @@
                           <label for="cijena">Cijena jela:</label>
                           <input type="number" class="form-control" id="cijena" name="cijena" required>
                       </div>
+                      <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="kategorija_id">
+                        <option selected>Odaberi kategoriju</option>
+                        {% for kategorija in kategorije %}
+                        <option value="{{ kategorija.ID_kategorija }}">{{ kategorija.naziv }}</option>
+                        {% endfor %}
+                      </select>
                       <button type="submit" class="btn btn-primary" id="addClassBtn">Dodaj jelo</button>
                     </form>
                 </div>

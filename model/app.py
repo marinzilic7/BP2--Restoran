@@ -17,19 +17,22 @@ app.config['SESSION_TYPE'] = 'filesystem'
 @app.route("/")
 def index ():
     jela = session.query(Jelo).all()
-    return render_template('home.html', jela=jela)
+    kategorije = session.query(Kategorija).all()  # Dohvaćanje samo ID-eva kategorija
+    return render_template('home.html', jela=jela,kategorije=kategorije)
 
 @app.route('/dodaj-jelo', methods=['POST'])
 def dodaj_jelo():
     naziv = request.form.get('naziv')
     opis = request.form.get('opis')
-    cijena = int(request.form.get('cijena'))
-
-    novo_jelo = Jelo(naziv=naziv, opis=opis, cijena=cijena)
+    kategorija_id = request.form.get("kategorija_id")
+    cijena = request.form.get('cijena')
+    print("kategorija_id:", kategorija_id)  # Ispis na konzolu
+    
+    
+    novo_jelo = Jelo(naziv=naziv, ID_kategorija=kategorija_id, opis=opis, cijena=cijena)
     session.add(novo_jelo)
     session.commit()
 
-    
     return redirect(url_for('index'))
 
 

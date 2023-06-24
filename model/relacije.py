@@ -13,6 +13,7 @@ Korisnik.narudzba = relationship('Narudzba', back_populates='korisnik')
 Narudzba.stavka = relationship('StavkaNarudzbe', back_populates='narudzba')
 Jelo.kategorija = relationship('Kategorija', back_populates='hrana')
 Pice.kategorija = relationship('Kategorija', back_populates='drinks')
+Kategorija.jelo = relationship('Jelo', back_populates='kategorija')
 
 Base.metadata.bind = engine
 Base.metadata.create_all(bind=engine)
