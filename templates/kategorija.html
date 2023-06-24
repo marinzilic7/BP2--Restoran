@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Restoran - Dodaj kategoriju</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-secondary">
+      <div class="container-fluid">
+        <a class="navbar-brand text-light" href="#">Restoran</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active text-light" aria-current="page">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" href="kategorija.html"
+                >Dodaj kategoriju</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="category d-flex justify-content-center mt-5">
+      <form method="POST" action="/dodaj-kategoriju" class="w-50">
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label"
+            >Ime kategorije</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="exampleInputPassword1"
+            name="naziv"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="container mt-3 d-flex justify-content-center">
+        {% for message in messages %}
+          <p class="btn btn-success">{{ message }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+    <h1>Sve kategorije</h1>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">id</th>
+          <th scope="col">Naziv</th>
+          <th scope="col">Akcije</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for kategorija in kategorije %}
+        <tr>
+          <th scope="row">{{kategorija.ID_kategorija}}</th>
+          <td>{{ kategorija.naziv }}</td>
+          <td>
+            <form
+              action="{{ url_for('izbrisi_kategoriju', ID_kategorija=kategorija.ID_kategorija) }}"
+              method="POST"
+            >
+              <input type="hidden" name="ID.kategorija" />
+              <button type="submit" class="btn btn-danger">
+                Izbriši kategoriju
+              </button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
