@@ -29,12 +29,25 @@
         </div>
       </nav>
 
-      <h1>Dostupne klase hrane:</h1>
-      <ul>
-        {% for food_class in jela %}
-        <li>{{ food_class.naziv }}</li>
-        {% endfor %}
-      </ul>
+      <h1>Food</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Naziv</th>
+                <th>Opis</th>
+                <th>Cijena</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for jelo in jela %}
+            <tr>
+                <td>{{ jelo.naziv }}</td>
+                <td>{{ jelo.opis }}</td>
+                <td>{{ jelo.cijena }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
       <!-- MODAL -->
 
       <div class="modal fade" id="addClassModal" tabindex="-1" aria-labelledby="addClassModalLabel" aria-hidden="true">

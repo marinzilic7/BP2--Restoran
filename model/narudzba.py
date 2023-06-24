@@ -1,7 +1,7 @@
 from __init__ import Base
 
 from sqlalchemy import *
-from sqlalchemy.orm import relationship
+
 
 class Narudzba (Base):
     __tablename__ = "narudzba"

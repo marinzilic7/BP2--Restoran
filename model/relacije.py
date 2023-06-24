@@ -10,7 +10,7 @@ from __init__ import Base
 from __init__  import engine
 
 
-Korisnik.naruzba = relationship('Narudzba', back_populates='korisnik')
+Korisnik.narudzba = relationship('Narudzba', back_populates='korisnik')
 Narudzba.stavka = relationship('StavkaNarudzbe', back_populates='narudzba')
 Jelo.stavka = relationship('StavkaNarudzbe', back_populates='hrana')
 Pice.stavka = relationship('StavkaNarudzbe', back_populates='drinks')
