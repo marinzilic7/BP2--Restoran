@@ -46,7 +46,11 @@
           <tr >
             <th scope="row">{{jelo.ID_food}}</th>
             <td>{{ jelo.naziv }}</td>
-            <td>{{ jelo.ID_kategorija }}</td>
+            <td> {% for kategorija in kategorije %}
+              {% if kategorija.ID_kategorija == jelo.ID_kategorija %}
+                {{ kategorija.naziv }}
+              {% endif %}
+            {% endfor %}</td>
             <td>{{ jelo.opis }}</td>
             <td>{{ jelo.cijena }}</td>
           </tr>
