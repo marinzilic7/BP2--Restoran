@@ -69,6 +69,37 @@ def izbrisi_kategoriju(ID_kategorija):
 
     return redirect(url_for('kategorija'))
 
+@app.route('/izbrisi_jelo/<int:ID_food>', methods=['POST'])
+def izbrisi_jelo(ID_food):
+    jelo = session.query(Jelo).get(ID_food)
+    
+    if jelo:
+        # Izbriši kategoriju iz baze podataka
+        session.delete(jelo)
+        session.commit()  
+
+    return redirect(url_for('index'))
+
+@app.route('/uredi_jelo/<int:ID_food>')
+def uredi_jelo(ID_food):
+    jelo = session.query(Jelo).get(ID_food)
+    kategorije = session.query(Kategorija).all()
+    return render_template('edit_jelo.html', jelo=jelo, kategorije=kategorije)
+
+@app.route('/azuriraj_jelo/<int:ID_food>', methods=['POST'])
+def azuriraj_jelo(ID_food):
+    jelo = session.query(Jelo).get(ID_food)
+    if jelo:
+        jelo.naziv = request.form.get('naziv')
+        jelo.opis = request.form.get('opis')
+        jelo.kategorija_id = request.form.get('kategorija_id')
+        jelo.cijena = request.form.get('cijena')
+        session.commit()
+        flash('Jelo je uspješno ažurirano.', 'success')
+    else:
+        flash('Jelo nije pronađeno.', 'error')
+
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run()

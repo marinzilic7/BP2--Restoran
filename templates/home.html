@@ -39,6 +39,8 @@
             <th scope="col">Kategorija</th>
             <th scope="col">Opis</th>
             <th scope="col">Cijena</th>
+            <th scope="col">Izbrisi jelo</th>
+            <th scope="col">Uredi jelo</th>
           </tr>
         </thead>
         <tbody>
@@ -50,11 +52,29 @@
               {% if kategorija.ID_kategorija == jelo.ID_kategorija %}
                 {{ kategorija.naziv }}
               {% endif %}
-            {% endfor %}</td>
+            {% endfor %}
+          </td>
             <td>{{ jelo.opis }}</td>
             <td>{{ jelo.cijena }}</td>
+            <td><form
+              action="{{ url_for('izbrisi_jelo', ID_food=jelo.ID_food) }}"
+              method="POST"
+            >
+              <input type="hidden" name="ID_food" />
+              <button type="submit" class="btn btn-danger btn-sm">Ibrisi</button>
+            </form></td>
+            <td><form
+              action="{{ url_for('uredi_jelo', ID_food=jelo.ID_food) }}"
+            
+            >
+              <input type="hidden" name="ID_food" />
+              <button type="submit" class="btn btn-warning btn-sm">Uredi</button>
+            </form></td>
+            
           </tr>
+
           {% endfor %}
+          
         </tbody>
       </table>
   
