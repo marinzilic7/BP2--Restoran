@@ -1,23 +1,24 @@
 from __init__ import session
+from __init__ import Base
 from jelo import Jelo
 from kategorija import Kategorija
-
 
 import os 
 
 from flask import Flask,render_template, request,redirect, url_for,flash
 
 
-
 app = Flask(__name__, template_folder=os.path.join(os.path.dirname(__file__), '../templates'))
+
 app.secret_key = 'ovo-je-moj-tajni-kljuc'
 app.config['SESSION_TYPE'] = 'filesystem'
+
 
 
 @app.route("/")
 def index ():
     jela = session.query(Jelo).all()
-    kategorije = session.query(Kategorija).all()  # Dohvaćanje samo ID-eva kategorija
+    kategorije = session.query(Kategorija).all()  
     return render_template('home.html', jela=jela,kategorije=kategorije)
 
 @app.route('/dodaj-jelo', methods=['POST'])
@@ -26,7 +27,7 @@ def dodaj_jelo():
     opis = request.form.get('opis')
     kategorija_id = request.form.get("kategorija_id")
     cijena = request.form.get('cijena')
-    print("kategorija_id:", kategorija_id)  # Ispis na konzolu
+    print("kategorija_id:", kategorija_id)  
     
     
     novo_jelo = Jelo(naziv=naziv, ID_kategorija=kategorija_id, opis=opis, cijena=cijena)
@@ -60,7 +61,7 @@ def izbrisi_kategoriju(ID_kategorija):
     kategorija = session.query(Kategorija).get(ID_kategorija)
     print(kategorija)
     if kategorija:
-        # Izbriši kategoriju iz baze podataka
+        
         session.delete(kategorija)
         session.commit()
         flash('Kategorija je uspješno obrisana.', 'warning')
@@ -74,7 +75,7 @@ def izbrisi_jelo(ID_food):
     jelo = session.query(Jelo).get(ID_food)
     
     if jelo:
-        # Izbriši kategoriju iz baze podataka
+        
         session.delete(jelo)
         session.commit()  
 
@@ -101,5 +102,9 @@ def azuriraj_jelo(ID_food):
 
     return redirect(url_for('index'))
 
+ 
+
+app.debug = True
+
 if __name__ == '__main__':
-    app.run()
+     app.run(host="0.0.0.0", port=5000)

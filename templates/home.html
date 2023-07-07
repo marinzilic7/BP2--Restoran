@@ -91,7 +91,7 @@
                     <form id="addClassForm" method="POST" action="/dodaj-jelo">
                         <div class="mb-3">
                             <label for="Pice" class="form-label">Dodaj jelo</label>
-                            <input type="text" class="form-control" id="odjeljenje" name="naziv">
+                            <input type="text" class="form-control" id="odjeljenje" name="naziv" required>
                         </div>
                         <div class="form-group">
                           <label for="opis">Opis jela:</label>
@@ -101,7 +101,7 @@
                           <label for="cijena">Cijena jela:</label>
                           <input type="number" class="form-control" id="cijena" name="cijena" required>
                       </div>
-                      <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="kategorija_id">
+                      <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="kategorija_id" required>
                         <option selected>Odaberi kategoriju</option>
                         {% for kategorija in kategorije %}
                         <option value="{{ kategorija.ID_kategorija }}">{{ kategorija.naziv }}</option>
